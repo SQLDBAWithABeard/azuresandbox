@@ -293,7 +293,7 @@ az keyvault set-policy \
   --subscription $subscription_id \
   --name $key_vault_name \
   --resource-group $resource_group_name \
-  --secret-permissions get list 'set' \
+  --secret-permissions get list delete 'set'  \
   --object-id $owner_object_id
 
 printf "Creating key vault secret access policy for service principal AppId '$arm_client_id'...\n"
@@ -301,7 +301,7 @@ az keyvault set-policy \
   --subscription $subscription_id \
   --name $key_vault_name \
   --resource-group $resource_group_name \
-  --secret-permissions get 'set' \
+  --secret-permissions get list delete 'set' \
   --spn $arm_client_id
 
 secret_expiration_date=$(date -u -d "+$secret_expiration_days days" +'%Y-%m-%dT%H:%M:%SZ')
