@@ -1,5 +1,4 @@
-#!/bin/bash
-
+﻿#!/bin/bash
 # Bootstraps deployment with pre-requisites for applying Terraform configurations
 # Script is idempotent and can be run multiple times
 
@@ -80,7 +79,7 @@ gen_strong_password () {
         # printf "Character '$i'; Category '$password_category'; Character ASCII '$char_ascii'; Character '$char'\n"
         char=$(printf \\$(printf '%03o' $char_ascii))
         password+=$char
-    done 
+    done
 
     echo $password
 }
@@ -109,15 +108,15 @@ default_aad_tenant_id=$(az account show --query tenantId --output tsv)
 # Initialize constants
 admin_password_secret='adminpassword'
 admin_username_secret='adminuser'
-arm_client_id=''
+arm_client_id='d8284783-febb-4990-9a17-7e8ca58abea1'
 arm_client_secret=''
 secret_expiration_days=365
 storage_container_name='scripts'
 
 # Initialize user defaults
-default_adds_domain_name="mysandbox.local"
+default_adds_domain_name="jessandbeard.local"
 default_admin_username="bootstrapadmin"
-default_costcenter="mycostcenter"
+default_costcenter="BenWeissmanPersonalAccount"
 default_dns_server="10.1.1.4"
 default_environment="dev"
 default_location="eastus"
@@ -195,7 +194,7 @@ fi
 arm_client_display_name=$(az ad sp show --id $arm_client_id --query "appDisplayName" --output tsv)
 
 if [ -n "$arm_client_display_name" ]
-then 
+then
   printf "Found service principal '$arm_client_display_name'...\n"
 else
   printf "Invalid service principal AppId '$arm_client_id'...\n"
@@ -206,7 +205,7 @@ fi
 subscription_name=$(az account list --query "[?id=='$subscription_id'].name" --output tsv)
 
 if [ -n "$subscription_name" ]
-then 
+then
   printf "Found subscription '$subscription_name'...\n"
 else
   printf "Invalid subscription id '$subscription_id'.\n"
